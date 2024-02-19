@@ -1,3 +1,65 @@
 * {
   box-sizing: border-box;
 }
+
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+.grid-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  align-items: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  height: 700px;
+  width: 1200px;
+}
+
+.grid div {
+  border: 1px solid lightgrey; /*need to remove later*/
+  flex-grow: 1;
+  height: 10%;
+  width: 10%;
+}
+
+/* characters */
+.grid div.charOne {
+  background-image: url("/assets/Mini-me.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.grid div.stan-lee {
+  background-image: url("/assets/stan_lee_police.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.grid div.police-car {
+  background-image: url("/assets/police_car.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.grid div.drone {
+  background-image: url("/assets/security_drone.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.grid div.cop {
+  background-image: url("/assets/scary_cop.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
