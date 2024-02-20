@@ -2,12 +2,10 @@ const grid = document.querySelector(".grid");
 const width = 10;
 const cellCount = width * width;
 const cells = [];
-let carCurrentPosition = 89;
-let copCurrentPosition = 69;
+
+let counter = 0;
+
 let charOneCurrentPosition = 97;
-let droneCurrentPosition = 39;
-let stanLeeCurrentPosition = 59;
-// remove object currentposition once move function created
 
 function createGrid() {
   Array.from(Array(cellCount).keys()).forEach((i) => {
@@ -17,14 +15,14 @@ function createGrid() {
     cells.push(cell);
   });
   addCharOne(charOneCurrentPosition);
-  setInterval(move, 400);
+  setInterval(move, 600);
   // move();
   // move();
 }
 
 createGrid();
 
-// adding objects
+//------------ Function ------------
 function addCharOne(position) {
   cells[position].classList.add("charOne");
 }
@@ -33,80 +31,110 @@ function removeCharOne(position) {
   cells[position].classList.remove("charOne");
 }
 
-function addCar(position) {
-  cells[position].classList.add("car");
-}
-
-function removeCar(position) {
-  cells[position].classList.remove("car");
-}
-
-function addCop(position) {
-  cells[position].classList.add("cop");
-}
-
-function removeCop(position) {
-  cells[position].classList.remove("cop");
-}
-
-function addDrone(position) {
-  cells[position].classList.add("drone");
-}
-
-function removeDrone(position) {
-  cells[position].classList.remove("drone");
-}
-
-function addStanLee(position) {
-  cells[position].classList.add("stan-lee");
-}
-
-function removeStanLee(position) {
-  cells[position].classList.remove("stan-lee");
-}
-
 // Function for collision interaction char vs obstacle & obstacle vs char
-function collisionDetected() {
-  if (carCurrentPosition === charOneCurrentPosition) {
-    // for each maybe to pass multiple arguments?...
-    console.log("you been hit");
-  }
-}
-// remove all instances of car, starting position for car
+// function collisionDetected() {
+//   if (carCurrentPosition === charOneCurrentPosition) {
+//     console.log("you been hit");
+//   }
+// }
+
+//------- Car -------
+const carRowIndex = 8;
+const carGap = 3;
+const carStartIndex = width * carRowIndex;
+const cars = Array.from(cells).slice(carStartIndex, carStartIndex + width);
+
+//-------- Cop ---------
+const copRowIndex = 6;
+const copGap = 4;
+const copStartIndex = width * copRowIndex;
+const cops = Array.from(cells).slice(copStartIndex, copStartIndex + width);
+//-------- StanLee ---------
+const stanLeeRowIndex = 5;
+const stanLeeGap = 3;
+const stanLeeStartIndex = width * stanLeeRowIndex;
+const stanLees = Array.from(cells).slice(
+  stanLeeStartIndex,
+  stanLeeStartIndex + width
+);
+//-------- Drone ----------
+const droneRowIndex = 3;
+const droneGap = 3;
+const droneStartIndex = width * droneRowIndex;
+const drones = Array.from(cells).slice(
+  droneStartIndex,
+  droneStartIndex + width
+);
 
 function move() {
-  removeCar(carCurrentPosition);
-  removeCop(copCurrentPosition);
-  removeDrone(droneCurrentPosition);
-  removeStanLee(stanLeeCurrentPosition);
+  counter++;
 
-  if (carCurrentPosition <= 89 && carCurrentPosition > 80) {
-    carCurrentPosition--;
-  }
-  console.log(carCurrentPosition);
-  // } else (carCurrentPosition <= 80 && carCurrentPosition < 89) {
-  //   carCurrentPosition++;
-  // }
+  cells.forEach((cell) => cell.classList.remove("car"));
 
-  addCar(carCurrentPosition);
-  addCop(copCurrentPosition);
-  addDrone(droneCurrentPosition);
-  addStanLee(stanLeeCurrentPosition);
-  collisionDetected(
-    carCurrentPosition,
-    charOneCurrentPosition,
-    copCurrentPosition,
-    stanLeeCurrentPosition
-  );
+  cars.forEach((car, index) => {
+    if (index % carGap === carGap - 1 - (counter % carGap)) {
+      car.classList.add("car");
+
+      if (index + width * carRowIndex === charOneCurrentPosition) {
+        console.log("hit by car!!!");
+        gameOver();
+      }
+    }
+  });
+
+  cells.forEach((cell) => cell.classList.remove("cop"));
+
+  cops.forEach((cop, index) => {
+    if (index % copGap === copGap - 1 - (counter % copGap)) {
+      cop.classList.add("cop");
+
+      if (index + width * copRowIndex === charOneCurrentPosition) {
+        console.log("hit by cop!!!");
+        gameOver();
+      }
+    }
+  });
+
+  cells.forEach((cell) => cell.classList.remove("stan-lee"));
+
+  stanLees.forEach((stanLee, index) => {
+    if (index % copGap === stanLeeGap - 1 - (counter % stanLeeGap)) {
+      stanLee.classList.add("stan-lee");
+
+      if (index + width * stanLeeRowIndex === charOneCurrentPosition) {
+        console.log("hit by Stan Lee!!!");
+      }
+    }
+  });
+
+  cells.forEach((cell) => cell.classList.remove("drone"));
+
+  drones.forEach((drone, index) => {
+    if (index % droneGap === droneGap - 1 - (counter % droneGap)) {
+      drone.classList.add("drone");
+
+      if (index + width * droneRowIndex === charOneCurrentPosition) {
+        console.log("hit by Drone!!!");
+      }
+    }
+  });
 }
 
 // making space
+
+// audio src
+
+// start game overlay
+
+// win game function win zone
+// space
 
 function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
   // left is 37
   if (event.keyCode === 37 && charOneCurrentPosition % width !== 0) {
     charOneCurrentPosition--;
+
     // up is 38
   } else if (event.keyCode === 38 && charOneCurrentPosition >= width) {
     charOneCurrentPosition -= width;
@@ -124,13 +152,11 @@ function handleKeyDown(event) {
     charOneCurrentPosition += width;
   }
 
+  //   if (!cells[charOneCurrentPosition].classList.contains('car')) {
+  //     console.log('you bite car')
+  //   }
+
   addCharOne(charOneCurrentPosition);
-  collisionDetected(
-    carCurrentPosition,
-    charOneCurrentPosition,
-    copCurrentPosition,
-    stanLeeCurrentPosition
-  );
 
   // logging moves will remove once fully test
   console.log(`CharOne current position ${charOneCurrentPosition}`);
