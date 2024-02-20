@@ -31,13 +31,7 @@ function removeCharOne(position) {
   cells[position].classList.remove("charOne");
 }
 
-// Function for collision interaction char vs obstacle & obstacle vs char
-// function collisionDetected() {
-//   if (carCurrentPosition === charOneCurrentPosition) {
-//     console.log("you been hit");
-//   }
-// }
-
+function gameOver() {} // In Progress
 //------- Car -------
 const carRowIndex = 8;
 const carGap = 3;
