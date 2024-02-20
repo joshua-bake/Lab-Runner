@@ -2,57 +2,105 @@ const grid = document.querySelector(".grid");
 const width = 10;
 const cellCount = width * width;
 const cells = [];
+let carCurrentPosition = 89;
+let copCurrentPosition = 69;
 let charOneCurrentPosition = 97;
-let stanLeeCurrentPosition = 89;
-let carCurrentPosition = 79;
-let droneCurrentPosition = 59;
-let copCurrentPosition = 49;
+let droneCurrentPosition = 39;
+let stanLeeCurrentPosition = 59;
+// remove object currentposition once move function created
 
 function createGrid() {
   Array.from(Array(cellCount).keys()).forEach((i) => {
     const cell = document.createElement("div");
-    cell.innerText = i; //display numbers
+    cell.innerText = i; //display grid numbers
     grid.appendChild(cell);
     cells.push(cell);
   });
   addCharOne(charOneCurrentPosition);
-  addStanLee(stanLeeCurrentPosition);
-  addCar(carCurrentPosition);
-  addDrone(droneCurrentPosition);
-  addCop(copCurrentPosition);
+  setInterval(move, 400);
+  // move();
+  // move();
 }
 
 createGrid();
 
-// adding characters
+// adding objects
 function addCharOne(position) {
   cells[position].classList.add("charOne");
 }
 
-function addStanLee(position) {
-  cells[position].classList.add("stan-lee");
+function removeCharOne(position) {
+  cells[position].classList.remove("charOne");
 }
 
 function addCar(position) {
-  cells[position].classList.add("police-car");
+  cells[position].classList.add("car");
 }
 
-function addDrone(position) {
-  cells[position].classList.add("drone");
+function removeCar(position) {
+  cells[position].classList.remove("car");
 }
 
 function addCop(position) {
   cells[position].classList.add("cop");
 }
 
-// obstacle timers and move direction.
-function stanLeeTimer() {}
+function removeCop(position) {
+  cells[position].classList.remove("cop");
+}
+
+function addDrone(position) {
+  cells[position].classList.add("drone");
+}
+
+function removeDrone(position) {
+  cells[position].classList.remove("drone");
+}
+
+function addStanLee(position) {
+  cells[position].classList.add("stan-lee");
+}
+
+function removeStanLee(position) {
+  cells[position].classList.remove("stan-lee");
+}
+
+// Function for collision interaction char vs obstacle & obstacle vs char
+function collisionDetected() {
+  if (carCurrentPosition === charOneCurrentPosition) {
+    // for each maybe to pass multiple arguments?...
+    console.log("you been hit");
+  }
+}
+// remove all instances of car, starting position for car
+
+function move() {
+  removeCar(carCurrentPosition);
+  removeCop(copCurrentPosition);
+  removeDrone(droneCurrentPosition);
+  removeStanLee(stanLeeCurrentPosition);
+
+  if (carCurrentPosition <= 89 && carCurrentPosition > 80) {
+    carCurrentPosition--;
+  }
+  console.log(carCurrentPosition);
+  // } else (carCurrentPosition <= 80 && carCurrentPosition < 89) {
+  //   carCurrentPosition++;
+  // }
+
+  addCar(carCurrentPosition);
+  addCop(copCurrentPosition);
+  addDrone(droneCurrentPosition);
+  addStanLee(stanLeeCurrentPosition);
+  collisionDetected(
+    carCurrentPosition,
+    charOneCurrentPosition,
+    copCurrentPosition,
+    stanLeeCurrentPosition
+  );
+}
 
 // making space
-
-function removeCharOne(position) {
-  cells[position].classList.remove("charOne");
-}
 
 function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
@@ -76,10 +124,15 @@ function handleKeyDown(event) {
     charOneCurrentPosition += width;
   }
 
-  // we have a new current position now so add the new burglar
   addCharOne(charOneCurrentPosition);
+  collisionDetected(
+    carCurrentPosition,
+    charOneCurrentPosition,
+    copCurrentPosition,
+    stanLeeCurrentPosition
+  );
 
-  // logging moves will remove
+  // logging moves will remove once fully test
   console.log(`CharOne current position ${charOneCurrentPosition}`);
 }
 

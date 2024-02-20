@@ -26,7 +26,7 @@ body {
 }
 
 .grid div {
-  border: 1px solid lightgrey; /*need to remove later*/
+  /* border: 1px solid lightgrey; need to remove later */
   flex-grow: 1;
   height: 10%;
   width: 10%;
@@ -37,18 +37,21 @@ body {
   background-image: url("/assets/Mini-me.png");
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
 }
 
 .grid div.stan-lee {
   background-image: url("/assets/stan_lee_police.png");
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
 }
 
-.grid div.police-car {
+.grid div.car {
   background-image: url("/assets/police_car.png");
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
   background-position: center;
 }
 
@@ -56,10 +59,12 @@ body {
   background-image: url("/assets/security_drone.png");
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
 }
 
 .grid div.cop {
   background-image: url("/assets/scary_cop.jpg");
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
 }
