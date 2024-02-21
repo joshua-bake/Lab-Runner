@@ -15,7 +15,7 @@ function createGrid() {
     cells.push(cell);
   });
   addCharOne(charOneCurrentPosition);
-  setInterval(move, 600);
+  setInterval(move, 1000);
   // move();
   // move();
 }
@@ -31,7 +31,17 @@ function removeCharOne(position) {
   cells[position].classList.remove("charOne");
 }
 
+const winLocation = 0;
+
 function gameOver() {} // In Progress
+
+// function winArea() {
+//   cells[position].classList.contains("win-location");
+// }
+
+// function winZone() {
+//   cells[position].classList.add("win-location");
+// }
 //------- Car -------
 const carRowIndex = 8;
 const carGap = 3;
@@ -70,7 +80,7 @@ function move() {
       car.classList.add("car");
 
       if (index + width * carRowIndex === charOneCurrentPosition) {
-        console.log("hit by car!!!");
+        console.log("hit by car!!!"); // test passed
         gameOver();
       }
     }
@@ -83,7 +93,7 @@ function move() {
       cop.classList.add("cop");
 
       if (index + width * copRowIndex === charOneCurrentPosition) {
-        console.log("hit by cop!!!");
+        console.log("hit by cop!!!"); // test passed
         gameOver();
       }
     }
@@ -96,7 +106,7 @@ function move() {
       stanLee.classList.add("stan-lee");
 
       if (index + width * stanLeeRowIndex === charOneCurrentPosition) {
-        console.log("hit by Stan Lee!!!");
+        console.log("hit by Stan Lee!!!"); // test passed
       }
     }
   });
@@ -108,7 +118,7 @@ function move() {
       drone.classList.add("drone");
 
       if (index + width * droneRowIndex === charOneCurrentPosition) {
-        console.log("hit by Drone!!!");
+        console.log("hit by Drone!!!"); // test passed
       }
     }
   });
@@ -125,6 +135,7 @@ function move() {
 
 function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
+
   // left is 37
   if (event.keyCode === 37 && charOneCurrentPosition % width !== 0) {
     charOneCurrentPosition--;
@@ -146,11 +157,15 @@ function handleKeyDown(event) {
     charOneCurrentPosition += width;
   }
 
-  //   if (!cells[charOneCurrentPosition].classList.contains('car')) {
-  //     console.log('you bite car')
-  //   }
-
   addCharOne(charOneCurrentPosition);
+
+  cells.forEach((cell) => cell.classList.contains("car, cop, drone, stanLee")); // bugged works on entire row
+
+  alert("hitted");
+
+  // if (charOneCurrentPosition === index + width * carRowIndex) {
+  //   alert("You hit car"); // need to DEBUG
+  // }
 
   // logging moves will remove once fully test
   console.log(`CharOne current position ${charOneCurrentPosition}`);
