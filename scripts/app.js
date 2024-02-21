@@ -6,6 +6,7 @@ const cells = [];
 let counter = 0;
 
 let charOneCurrentPosition = 97;
+// need a const variable for starting place to use in startReset function
 
 function createGrid() {
   Array.from(Array(cellCount).keys()).forEach((i) => {
@@ -14,34 +15,16 @@ function createGrid() {
     grid.appendChild(cell);
     cells.push(cell);
   });
-  addCharOne(charOneCurrentPosition);
-  setInterval(move, 1000);
-  // move();
-  // move();
 }
 
 createGrid();
 
-//------------ Function ------------
-function addCharOne(position) {
-  cells[position].classList.add("charOne");
-}
+const startButtons = document.querySelectorAll(".start");
+const popUps = document.querySelectorAll(".popUp");
 
-function removeCharOne(position) {
-  cells[position].classList.remove("charOne");
-}
+const popGameOver = document.querySelector(".gameOverOverlay");
+const popWin = document.querySelector(".winOverlay");
 
-const winLocation = 0;
-
-function gameOver() {} // In Progress
-
-// function winArea() {
-//   cells[position].classList.contains("win-location");
-// }
-
-// function winZone() {
-//   cells[position].classList.add("win-location");
-// }
 //------- Car -------
 const carRowIndex = 8;
 const carGap = 3;
@@ -69,6 +52,41 @@ const drones = Array.from(cells).slice(
   droneStartIndex,
   droneStartIndex + width
 );
+//------------ Function ------------
+function addCharOne(position) {
+  cells[position].classList.add("charOne");
+}
+
+function removeCharOne(position) {
+  cells[position].classList.remove("charOne");
+}
+
+function startReset() {
+  popUps.forEach((popUp) => popUp.classList.remove("active"));
+  addCharOne(charOneCurrentPosition);
+  gameSpeed(400);
+}
+
+function gameOver() {
+  popGameOver.classList.add("active");
+  pauseGame();
+}
+
+function win() {
+  popWin.classList.add("active");
+  pauseGame();
+}
+
+function pauseGame() {
+  clearInterval(move);
+  // pause any playing audio files
+}
+
+let gameInterval;
+function gameSpeed(ms) {
+  clearInterval(gameInterval);
+  gameInterval = setInterval(move, ms);
+}
 
 function move() {
   counter++;
@@ -80,7 +98,6 @@ function move() {
       car.classList.add("car");
 
       if (index + width * carRowIndex === charOneCurrentPosition) {
-        console.log("hit by car!!!"); // test passed
         gameOver();
       }
     }
@@ -93,7 +110,6 @@ function move() {
       cop.classList.add("cop");
 
       if (index + width * copRowIndex === charOneCurrentPosition) {
-        console.log("hit by cop!!!"); // test passed
         gameOver();
       }
     }
@@ -106,7 +122,7 @@ function move() {
       stanLee.classList.add("stan-lee");
 
       if (index + width * stanLeeRowIndex === charOneCurrentPosition) {
-        console.log("hit by Stan Lee!!!"); // test passed
+        gameOver();
       }
     }
   });
@@ -118,7 +134,7 @@ function move() {
       drone.classList.add("drone");
 
       if (index + width * droneRowIndex === charOneCurrentPosition) {
-        console.log("hit by Drone!!!"); // test passed
+        gameOver();
       }
     }
   });
@@ -127,11 +143,6 @@ function move() {
 // making space
 
 // audio src
-
-// start game overlay
-
-// win game function win zone
-// space
 
 function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
@@ -156,13 +167,18 @@ function handleKeyDown(event) {
   ) {
     charOneCurrentPosition += width;
   }
+  if (charOneCurrentPosition <= width) {
+    win();
+  }
+  // if (!cells[charOneCurrentPosition].classList.contains("car")) {
+  //   charOneCurrentPosition = carRowIndex;
+  //   gameOver();
+  // }
 
   addCharOne(charOneCurrentPosition);
 
-  cells.forEach((cell) => cell.classList.contains("car, cop, drone, stanLee")); // bugged works on entire row
-
-  alert("hitted");
-
+  // cells.forEach((cell) => cell.classList.contains("car, cop, drone, stanLee")); // bugged works on entire row
+  // alert("hitted");
   // if (charOneCurrentPosition === index + width * carRowIndex) {
   //   alert("You hit car"); // need to DEBUG
   // }
@@ -170,5 +186,6 @@ function handleKeyDown(event) {
   // logging moves will remove once fully test
   console.log(`CharOne current position ${charOneCurrentPosition}`);
 }
+startButtons.forEach((button) => button.addEventListener("click", startReset));
 
 document.addEventListener("keydown", handleKeyDown);

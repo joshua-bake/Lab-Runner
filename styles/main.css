@@ -5,18 +5,31 @@
 body {
   height: 100vh;
   margin: 0;
-  background: #16dcf7;
+  /* background: #16dcf7; */
+  overflow: hidden;
+  transition: opacity 0.5s;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 img {
-  height: 180px;
-  width: 200px;
-  /* margin-left: 560px;
-  margin-bottom: -200px; */
+  height: 220px;
+  width: 400px;
+  margin-bottom: -100px;
 }
 
 .logo {
   text-align: center;
+}
+
+.game-board {
+  width: 1010px;
+  margin: 10px 40px 0;
+  z-index: 10;
+  box-shadow: 0 0 20px 0 rgb(241, 6, 6);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .grid-wrapper {
@@ -39,7 +52,6 @@ img {
 }
 
 .grid div {
-  /* border: 1px solid lightgrey; need to remove later */
   flex-grow: 1;
   height: 10%;
   width: 10%;
@@ -82,16 +94,81 @@ img {
   background-position: center;
 }
 
-/* .gameOverlay {
+.popUpInner {
+  height: 700px;
+  width: 1150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 0 10px 0 rgb(44, 212, 10);
+  border-radius: 20px;
+}
+
+.gameOver.popUpInner {
+  box-shadow: 0 0 10px 0 rgb(8, 188, 122);
+  height: 600px;
+  width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.popUp {
   position: fixed;
-  display: none;
-  width: 100%;
-  height: 100%;
   top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background-color: rgba(241, 176, 35, 0.5);
-  z-index: 2;
-  cursor: pointer;
-} */
+  transition: all 350ms;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.popUp.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gameOver {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  width: 125px;
+  height: 65px;
+  background-color: hsl(94, 79%, 67%);
+  border: none;
+  margin-top: 35px;
+  box-shadow: 0 0 20px 0 rgb(197, 234, 248);
+  border-radius: 20px;
+  font-family: "Orbitron", sans-serif;
+  font-size: 25px;
+  /* color:hsl(198, 64%, 33%);  */
+  outline: 0 none;
+}
+
+.starterButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start.restart {
+  width: 140px;
+  height: 65px;
+  background-color: hsl(95, 89%, 93%);
+  border: none;
+  box-shadow: 0 0 20px 0 rgb(253, 224, 204);
+  border-radius: 20px;
+  font-family: "Orbitron", sans-serif;
+  font-size: 25px;
+  color: hsl(198, 64%, 33%);
+  margin-bottom: 160px;
+}
