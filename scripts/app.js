@@ -5,8 +5,17 @@ const cells = [];
 
 let counter = 0;
 
-let charOneCurrentPosition = 97;
+// const startPosition1 = 97; ----testing restart placement location-----
+let charOneCurrentPosition = 96;
 // need a const variable for starting place to use in startReset function
+
+// const charactersPositions = { ----testing restart placement location-----
+//   1: startPosition1,
+// };
+
+// function testingPlacement() {
+//   testLocation = startPosition1;
+// }
 
 function createGrid() {
   Array.from(Array(cellCount).keys()).forEach((i) => {
@@ -21,7 +30,6 @@ createGrid();
 
 const startButtons = document.querySelectorAll(".start");
 const popUps = document.querySelectorAll(".popUp");
-
 const popGameOver = document.querySelector(".gameOverOverlay");
 const popWin = document.querySelector(".winOverlay");
 
@@ -64,21 +72,33 @@ function removeCharOne(position) {
 function startReset() {
   popUps.forEach((popUp) => popUp.classList.remove("active"));
   addCharOne(charOneCurrentPosition);
+
+  // restartPosition() ----testing restart placement location-----
+
   gameSpeed(400);
+
+  // reset charOne position
 }
+
+// function restartPosition() {  ----testing restart placement location-----
+//   addCharOne(startPosition1);
+// }
 
 function gameOver() {
   popGameOver.classList.add("active");
-  pauseGame();
+  pauseGame(); // reset charOne position
+  // restartPosition(); ----testing restart placement location-----
 }
 
 function win() {
   popWin.classList.add("active");
-  pauseGame();
+  pauseGame(); // reset charOne position
+  // restartPosition(); ----testing restart placement location-----
 }
 
 function pauseGame() {
-  clearInterval(move);
+  clearInterval(gameInterval);
+  // reset charOne position
   // pause any playing audio files
 }
 
