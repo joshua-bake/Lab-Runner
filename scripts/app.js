@@ -66,7 +66,7 @@ function removeCharOne(position) {
 function startReset() {
   popUps.forEach((popUp) => popUp.classList.remove("active"));
   addCharOne(charOneCurrentPosition);
-  gameSpeed(600); // increase to slow down or decrease to speed up.
+  gameSpeed(900); // increase to slow down or decrease to speed up.
 }
 
 function gameOver() {

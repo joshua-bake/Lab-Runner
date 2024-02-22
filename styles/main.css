@@ -11,6 +11,10 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-image: url("/assets/full_lab.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 img {
@@ -39,10 +43,9 @@ h2 {
   overflow: hidden;
   position: fixed;
   top: 0;
-  bottom: 1;
+  bottom: 0;
   left: 1;
   right: 1;
-  margin-top: 100px;
 }
 
 .grid-wrapper {
@@ -60,7 +63,10 @@ h2 {
   justify-content: center;
   height: 780px;
   width: 1200px;
-  background-color: white;
+  background-color: rgb(228, 90, 40);
+  opacity: 0.9;
+
+  margin-top: -130px;
 }
 
 .grid div {
@@ -69,9 +75,11 @@ h2 {
   width: 10%;
 }
 
-/* .grid div:nth-child(-n+10) {
-  background-color: green;
-} */
+.grid div:nth-child(-n + 10) {
+  background-image: url("/assets/city_view.jpg");
+  background-repeat: repeat-y;
+  background-size: 100%;
+}
 
 /* characters */
 .grid div.charOne {
@@ -125,6 +133,18 @@ h2 {
   justify-content: space-around;
   box-shadow: 0 0 10px 0 rgb(12, 123, 133);
   border-radius: 20px;
+  color: white;
+  background-image: url("/assets/lab.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: -140px;
+  padding: 30px;
+}
+
+.keyboard-arrows {
+  height: 6em;
+  width: 13em;
 }
 
 .gameOver.popUpInner {
@@ -142,13 +162,14 @@ h2 {
   bottom: 1;
   left: 1;
   right: 1;
-  margin-top: 100px;
+  margin-top: 320px;
+  margin-left: 30px;
   height: 750px;
   transition: all 350ms;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: rgba(234, 29, 196, 0.8);
+  /* background-color: rgba(234, 29, 196, 0.8); */
   display: flex;
   opacity: 0;
   pointer-events: none;
@@ -157,6 +178,11 @@ h2 {
 .popUp.active {
   opacity: 1;
   pointer-events: auto;
+  position: fixed;
+  top: 0;
+  bottom: 1;
+  left: 1;
+  right: 1;
 }
 
 .gameOver {
