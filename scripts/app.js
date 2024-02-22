@@ -4,23 +4,12 @@ const cellCount = width * width;
 const cells = [];
 
 let counter = 0;
-
-// const startPosition1 = 97; ----testing restart placement location-----
 let charOneCurrentPosition = 96;
-// need a const variable for starting place to use in startReset function
-
-// const charactersPositions = { ----testing restart placement location-----
-//   1: startPosition1,
-// };
-
-// function testingPlacement() {
-//   testLocation = startPosition1;
-// }
 
 function createGrid() {
   Array.from(Array(cellCount).keys()).forEach((i) => {
     const cell = document.createElement("div");
-    cell.innerText = i; //display grid numbers
+
     grid.appendChild(cell);
     cells.push(cell);
   });
@@ -46,7 +35,7 @@ const copStartIndex = width * copRowIndex;
 const cops = Array.from(cells).slice(copStartIndex, copStartIndex + width);
 //-------- StanLee ---------
 const stanLeeRowIndex = 5;
-const stanLeeGap = 3;
+const stanLeeGap = 4;
 const stanLeeStartIndex = width * stanLeeRowIndex;
 const stanLees = Array.from(cells).slice(
   stanLeeStartIndex,
@@ -60,6 +49,11 @@ const drones = Array.from(cells).slice(
   droneStartIndex,
   droneStartIndex + width
 );
+//-------- Wolf ----------
+const wolfRowIndex = 2;
+const wolfGap = 4;
+const wolfStartIndex = width * wolfRowIndex;
+const wolves = Array.from(cells).slice(wolfStartIndex, wolfStartIndex + width);
 //------------ Function ------------
 function addCharOne(position) {
   cells[position].classList.add("charOne");
@@ -72,33 +66,25 @@ function removeCharOne(position) {
 function startReset() {
   popUps.forEach((popUp) => popUp.classList.remove("active"));
   addCharOne(charOneCurrentPosition);
-
-  // restartPosition() ----testing restart placement location-----
-
-  gameSpeed(400);
-
-  // reset charOne position
+  gameSpeed(600); // increase to slow down or decrease to speed up.
 }
 
-// function restartPosition() {  ----testing restart placement location-----
-//   addCharOne(startPosition1);
-// }
-
 function gameOver() {
+  // game overlay needs to less transparent and cover majority of the board
   popGameOver.classList.add("active");
-  pauseGame(); // reset charOne position
-  // restartPosition(); ----testing restart placement location-----
+  pauseGame();
 }
 
 function win() {
   popWin.classList.add("active");
-  pauseGame(); // reset charOne position
-  // restartPosition(); ----testing restart placement location-----
+  pauseGame();
 }
 
 function pauseGame() {
   clearInterval(gameInterval);
-  // reset charOne position
+  removeCharOne(charOneCurrentPosition); // Remove charOne class from current position
+  charOneCurrentPosition = 97; // Reset charOne's position back to 97
+
   // pause any playing audio files
 }
 
@@ -138,7 +124,7 @@ function move() {
   cells.forEach((cell) => cell.classList.remove("stan-lee"));
 
   stanLees.forEach((stanLee, index) => {
-    if (index % copGap === stanLeeGap - 1 - (counter % stanLeeGap)) {
+    if (index % stanLeeGap === counter % stanLeeGap) {
       stanLee.classList.add("stan-lee");
 
       if (index + width * stanLeeRowIndex === charOneCurrentPosition) {
@@ -158,6 +144,18 @@ function move() {
       }
     }
   });
+
+  cells.forEach((cell) => cell.classList.remove("wolf"));
+
+  wolves.forEach((wolf, index) => {
+    if (index % wolfGap === counter % wolfGap) {
+      wolf.classList.add("wolf");
+
+      if (index + width * wolfRowIndex === charOneCurrentPosition) {
+        gameOver();
+      }
+    }
+  });
 }
 
 // making space
@@ -167,45 +165,92 @@ function move() {
 function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
 
+  let newCharOnePosition = charOneCurrentPosition;
+
   // left is 37
   if (event.keyCode === 37 && charOneCurrentPosition % width !== 0) {
-    charOneCurrentPosition--;
-
-    // up is 38
-  } else if (event.keyCode === 38 && charOneCurrentPosition >= width) {
-    charOneCurrentPosition -= width;
-    // right is 39
-  } else if (
+    newCharOnePosition = charOneCurrentPosition - 1;
+  }
+  // up is 38
+  else if (event.keyCode === 38 && charOneCurrentPosition >= width) {
+    newCharOnePosition = charOneCurrentPosition - width;
+  }
+  // right is 39
+  else if (
     event.keyCode === 39 &&
     charOneCurrentPosition % width !== width - 1
   ) {
-    charOneCurrentPosition++;
-    // down is 40
-  } else if (
-    event.keyCode === 40 &&
-    charOneCurrentPosition < cellCount - width
-  ) {
-    charOneCurrentPosition += width;
+    newCharOnePosition = charOneCurrentPosition + 1;
   }
+  // down is 40
+  else if (event.keyCode === 40 && charOneCurrentPosition < cellCount - width) {
+    newCharOnePosition = charOneCurrentPosition + width;
+  }
+
+  // Check if the new position collides with any obstacle
+  if (isCollidingWithObstacle(newCharOnePosition)) {
+    gameOver(); // Collision detected with obstacle
+    return; // Exit function to prevent further movement
+  }
+
+  charOneCurrentPosition = newCharOnePosition;
+
   if (charOneCurrentPosition <= width) {
     win();
   }
-  // if (!cells[charOneCurrentPosition].classList.contains("car")) {
-  //   charOneCurrentPosition = carRowIndex;
-  //   gameOver();
-  // }
 
   addCharOne(charOneCurrentPosition);
-
-  // cells.forEach((cell) => cell.classList.contains("car, cop, drone, stanLee")); // bugged works on entire row
-  // alert("hitted");
-  // if (charOneCurrentPosition === index + width * carRowIndex) {
-  //   alert("You hit car"); // need to DEBUG
-  // }
-
-  // logging moves will remove once fully test
-  console.log(`CharOne current position ${charOneCurrentPosition}`);
 }
+
+// Function to check if the new position collides with any obstacle
+function isCollidingWithObstacle(position) {
+  // Check collision with cars
+  if (
+    cars.some(
+      (car) => car.classList.contains("car") && cells.indexOf(car) === position
+    )
+  ) {
+    return true;
+  }
+  // Check collision with cops
+  if (
+    cops.some(
+      (cop) => cop.classList.contains("cop") && cells.indexOf(cop) === position
+    )
+  ) {
+    return true;
+  }
+  // Check collision with stan-lees
+  if (
+    stanLees.some(
+      (stanLee) =>
+        stanLee.classList.contains("stan-lee") &&
+        cells.indexOf(stanLee) === position
+    )
+  ) {
+    return true;
+  }
+  // Check collision with drones
+  if (
+    drones.some(
+      (drone) =>
+        drone.classList.contains("drone") && cells.indexOf(drone) === position
+    )
+  ) {
+    return true;
+  }
+  // Check collision with wolves
+  if (
+    wolves.some(
+      (wolf) =>
+        wolf.classList.contains("wolf") && cells.indexOf(wolf) === position
+    )
+  ) {
+    return true;
+  }
+  return false; // No collision detected
+}
+
 startButtons.forEach((button) => button.addEventListener("click", startReset));
 
 document.addEventListener("keydown", handleKeyDown);
