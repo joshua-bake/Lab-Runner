@@ -13,7 +13,7 @@
   </head>
   <body>
     <div class="logo">
-      <img src="/assets/Lab_Runner.gif" alt="logo" />
+      <img src="./assets/Lab_Runner.gif" alt="logo" />
     </div>
     <div class="gameBoard">
       <div class="grid-wrapper">
@@ -24,21 +24,23 @@
       <div class="active startOverlay popUp">
         <div class="startPopUp popUpInner">
           <div class="game-description">
-            <h2>INSTRUCTIONS:</h2>
+            <h2>PROLOGUE</h2>
             <p>
               A fatal car crash had left you in critical condition. For 7 months
               you've been experimented on and sedated. Emerged from your
               slumber, you find yourself trapped in an highly advanced human
               testing facility where you're “Subject Alpha”. The sedatives have
-              worn off, now a your chance to escape… <br><br><br>
-              <h2>Instructions:</h2>
-              <p>Use the arrow keys on your keyboard to move “Subject
-              Alpha” across the board. Avoid the enhanced security measures
-              whose sole purpose is to keep your from awakening your powers.
-              Make it to the other side and take back your FREEDOM!!!</p>
+              worn off, now a your chance to escape…<br /><br /><br />
+            </p>
+            <h2>Instructions:</h2>
+            <p>
+              Use the arrow keys on your keyboard to move “Subject Alpha” across
+              the board. Avoid the enhanced security measures whose sole purpose
+              is to keep your from awakening your powers. Make it to the other
+              side and take back your FREEDOM!!!
             </p>
             <img
-              src="/assets/arrow_keys.png"
+              src="./assets/arrow_keys.png"
               alt="Arrows keys on keyboard"
               class="keyboard-arrows"
             />
@@ -52,7 +54,7 @@
       <div class="gameOverOverlay popUp">
         <div class="gameOver popUpInner">
           <img
-            src="/assets/gameOverGIF.gif"
+            src="./assets/gameOverGIF.gif"
             alt="Game Over GIF"
             class="gameOverGIF"
           />
@@ -62,17 +64,42 @@
 
       <div class="winOverlay popUp">
         <div class="win popUpInner">
-          <img src="/assets/winner.gif" alt="Winner GIF" class="winnerGIF" />
+          <img src="./assets/winner.gif" alt="Winner GIF" class="winnerGIF" />
           <button class="play-again start">PLAY AGAIN?</button>
+          <p class="winner">
+            You've escaped. Stay tuned for the next chapter as the story
+            continues to unfold. <br />
+          </p>
         </div>
       </div>
 
       <!-- audio section -->
-      <audio src="#" id="">
+      <audio
+        controls
+        loop
+        src="./sounds/psycho-alex-besss-main-version-01-09-14011.mp3"
+        id="backgroundMusic"
+        class="fade"
+      ></audio>
+
+      <audio src="./sounds/car.wav" id="carSound"></audio>
+
+      <audio src="./sounds/drone.wav" id="droneSound"></audio>
+
+      <audio src="./sounds/wolf.mp3" id="wolfSound"></audio>
+
+      <audio
+        src="./sounds/aztec-death-whistle-blow-joshua-chivers-1-00-05.mp3"
+        id="capturedSound"
+      ></audio>
+
+      <audio src="./sounds/winSound.wav" id="winSound"></audio>
+
+      <!-- <audio src="#" id="">
         <!-- <audio src="../js-soundboard-start/sounds/" id="audio"></audio>
         <!-- Use data-key and data-url to link sound file and can be linked and pulled from js file -->
-        <!-- <div class="button workit" data-key="1" data-url="work_it.wav"> -->
-      </audio>
+      <!-- <div class="button workit" data-key="1" data-url="work_it.wav"> -->
+      <!-- </audio> -->
     </div>
   </body>
 </html>

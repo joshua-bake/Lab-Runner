@@ -3,7 +3,7 @@ const width = 10;
 const cellCount = width * width;
 const cells = [];
 
-// Immoveable objects
+// Immovable objects
 const corridor = [11, 14, 18, 92, 96];
 const assassin = [40, 43, 46, 49];
 const warden = [70, 74, 79];
@@ -22,8 +22,13 @@ function createGrid() {
 
 createGrid();
 
-// making space
-// ------------------------------
+// ---------audio--------------------
+const backgroundMusic = document.querySelector("#backgroundMusic");
+const carSound = document.querySelector("#carSound");
+const droneSound = document.querySelector("#droneSound");
+const wolfSound = document.querySelector("#wolfSound");
+const capturedSound = document.querySelector("#capturedSound");
+const winSound = document.querySelector("#winSound");
 // audio src
 
 const startButtons = document.querySelectorAll(".start");
@@ -72,29 +77,56 @@ function removeCharOne(position) {
   cells[position].classList.remove("charOne");
 }
 
+function carSounds() {
+  carSound.play();
+  setTimeout(() => {
+    carSound.pause();
+  }, 2000);
+}
+
+function droneSounds() {
+  droneSound.play();
+}
+
+function wolfSounds() {
+  wolfSound.play();
+}
+
+function capturedSounds() {
+  capturedSound.play();
+  setTimeout(() => {
+    capturedSound.pause();
+  }, 2000);
+}
+
+function winSounds() {
+  winSound.play();
+}
+
 function startReset() {
   popUps.forEach((popUp) => popUp.classList.remove("active"));
   addCharOne(charOneCurrentPosition);
   gameSpeed(900); // increase to slow down or decrease to speed up.
-  // add background audio
+  backgroundMusic.volume = 0.4;
+  backgroundMusic.play();
 }
 
 function gameOver() {
   popGameOver.classList.add("active");
   pauseGame();
-  // add audio for game over
 }
 
 function win() {
   popWin.classList.add("active");
   pauseGame();
-  // add audio for win
+  winSounds();
 }
 
 function pauseGame() {
   clearInterval(gameInterval);
   removeCharOne(charOneCurrentPosition); // Remove charOne class from current position
   charOneCurrentPosition = 97; // Reset charOne's position back to 97
+  backgroundMusic.pause();
 
   // pause any playing audio files
 }
@@ -116,6 +148,7 @@ function move() {
 
       if (index + width * carRowIndex === charOneCurrentPosition) {
         gameOver();
+        carSounds();
       }
     }
   });
@@ -128,6 +161,7 @@ function move() {
 
       if (index + width * copRowIndex === charOneCurrentPosition) {
         gameOver();
+        capturedSounds();
       }
     }
   });
@@ -140,6 +174,7 @@ function move() {
 
       if (index + width * stanLeeRowIndex === charOneCurrentPosition) {
         gameOver();
+        capturedSounds();
       }
     }
   });
@@ -152,6 +187,7 @@ function move() {
 
       if (index + width * droneRowIndex === charOneCurrentPosition) {
         gameOver();
+        droneSounds();
       }
     }
   });
@@ -164,6 +200,7 @@ function move() {
 
       if (index + width * wolfRowIndex === charOneCurrentPosition) {
         gameOver();
+        wolfSounds();
       }
     }
   });
@@ -244,6 +281,7 @@ function isCollidingWithObstacle(position) {
       (car) => car.classList.contains("car") && cells.indexOf(car) === position
     )
   ) {
+    carSounds();
     return true;
   }
   // Check collision with cops
@@ -252,6 +290,7 @@ function isCollidingWithObstacle(position) {
       (cop) => cop.classList.contains("cop") && cells.indexOf(cop) === position
     )
   ) {
+    capturedSounds();
     return true;
   }
   // Check collision with stan-lees
@@ -262,6 +301,7 @@ function isCollidingWithObstacle(position) {
         cells.indexOf(stanLee) === position
     )
   ) {
+    capturedSounds();
     return true;
   }
   // Check collision with drones
@@ -271,6 +311,7 @@ function isCollidingWithObstacle(position) {
         drone.classList.contains("drone") && cells.indexOf(drone) === position
     )
   ) {
+    droneSounds();
     return true;
   }
   // Check collision with wolves
@@ -280,6 +321,7 @@ function isCollidingWithObstacle(position) {
         wolf.classList.contains("wolf") && cells.indexOf(wolf) === position
     )
   ) {
+    wolfSounds();
     return true;
   }
   return false; // No collision detected

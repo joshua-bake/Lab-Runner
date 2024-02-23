@@ -36,6 +36,7 @@ h2 {
   font-weight: bold;
   color: salmon;
   font-size: 30px;
+  text-transform: uppercase;
 }
 
 .game-board {
@@ -63,7 +64,8 @@ h2 {
   justify-content: center;
   height: 780px;
   width: 1200px;
-  background-color: rgba(54, 202, 172, 0.502);
+  background-color: rgba(54, 202, 172, 0.526);
+  border-radius: 20px;
   margin-top: -130px;
 }
 
@@ -237,4 +239,39 @@ button {
   font-size: 25px;
   color: hsl(204, 11%, 91%);
   margin-bottom: 160px;
+}
+
+.win {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#backgroundMusic {
+  font-size: 16px;
+  color: #f12e2e;
+  position: absolute;
+  top: 18%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 15px;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  opacity: 0.8;
+  cursor: pointer;
+  transition: all 0.4s ease-out;
+}
+
+.fade:hover {
+  opacity: 0.8;
+}
+
+.fade {
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0);
 }
