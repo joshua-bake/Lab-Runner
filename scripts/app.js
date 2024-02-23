@@ -3,8 +3,13 @@ const width = 10;
 const cellCount = width * width;
 const cells = [];
 
+// Immoveable objects
+const corridor = [11, 14, 18, 92, 96];
+const assassin = [40, 43, 46, 49];
+const warden = [70, 74, 79];
+
 let counter = 0;
-let charOneCurrentPosition = 96;
+let charOneCurrentPosition = 97;
 
 function createGrid() {
   Array.from(Array(cellCount).keys()).forEach((i) => {
@@ -16,6 +21,10 @@ function createGrid() {
 }
 
 createGrid();
+
+// making space
+// ------------------------------
+// audio src
 
 const startButtons = document.querySelectorAll(".start");
 const popUps = document.querySelectorAll(".popUp");
@@ -67,17 +76,19 @@ function startReset() {
   popUps.forEach((popUp) => popUp.classList.remove("active"));
   addCharOne(charOneCurrentPosition);
   gameSpeed(900); // increase to slow down or decrease to speed up.
+  // add background audio
 }
 
 function gameOver() {
-  // game overlay needs to less transparent and cover majority of the board
   popGameOver.classList.add("active");
   pauseGame();
+  // add audio for game over
 }
 
 function win() {
   popWin.classList.add("active");
   pauseGame();
+  // add audio for win
 }
 
 function pauseGame() {
@@ -156,15 +167,23 @@ function move() {
       }
     }
   });
+
+  corridor.forEach((index) => {
+    cells[index].classList.add("corridor");
+  });
+
+  assassin.forEach((index) => {
+    cells[index].classList.add("assassin");
+  });
+
+  warden.forEach((index) => {
+    cells[index].classList.add("warden");
+  });
 }
-
-// making space
-
-// audio src
 
 function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
-
+  // moving sounds effects
   let newCharOnePosition = charOneCurrentPosition;
 
   // left is 37
@@ -187,9 +206,24 @@ function handleKeyDown(event) {
     newCharOnePosition = charOneCurrentPosition + width;
   }
 
+  // Collision detection with immovable objects
+  if (cells[newCharOnePosition].classList.contains("corridor")) {
+    //Check if the destination cell contains the corridor
+    newCharOnePosition = charOneCurrentPosition;
+    //corridor found, do not move the player
+  }
+
+  if (cells[newCharOnePosition].classList.contains("assassin")) {
+    newCharOnePosition = charOneCurrentPosition;
+  }
+
+  if (cells[newCharOnePosition].classList.contains("warden")) {
+    newCharOnePosition = charOneCurrentPosition;
+  }
+
   // Check if the new position collides with any obstacle
   if (isCollidingWithObstacle(newCharOnePosition)) {
-    gameOver(); // Collision detected with obstacle
+    gameOver();
     return; // Exit function to prevent further movement
   }
 
