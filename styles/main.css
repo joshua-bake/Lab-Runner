@@ -10,7 +10,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-image: url("/assets/full_lab.jpeg");
+  background-image: url("../assets/full_lab.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -76,21 +76,21 @@ h2 {
 }
 
 .corridor {
-  background-image: url("/assets/lab_corridor.jpeg");
+  background-image: url("../assets/lab_corridor.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   pointer-events: none;
 }
 
 .assassin {
-  background-image: url("/assets/fire_assassin.jpeg");
+  background-image: url("../assets/fire_assassin.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   pointer-events: none;
 }
 
 .warden {
-  background-image: url("/assets/warden.jpeg");
+  background-image: url("../assets/warden.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   pointer-events: none;
@@ -98,21 +98,21 @@ h2 {
 
 /* characters */
 .grid div.charOne {
-  background-image: url("/assets/Mini-me.png");
+  background-image: url("../assets/Mini-me.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 .grid div.stan-lee {
-  background-image: url("/assets/stan_lee_police.png");
+  background-image: url("../assets/stan_lee_police.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 .grid div.car {
-  background-image: url("/assets/police_car.png");
+  background-image: url("../assets/police_car.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -120,21 +120,21 @@ h2 {
 }
 
 .grid div.drone {
-  background-image: url("/assets/security_drone.png");
+  background-image: url("../assets/security_drone.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 .grid div.cop {
-  background-image: url("/assets/scary_cop.jpg");
+  background-image: url("../assets/scary_cop.jpg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 .grid div.wolf {
-  background-image: url("/assets/cyber_wolf.jpeg");
+  background-image: url("../assets/cyber_wolf.jpeg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -149,7 +149,7 @@ h2 {
   box-shadow: 0 0 10px 0 rgb(12, 123, 133);
   border-radius: 20px;
   color: white;
-  background-image: url("/assets/lab.jpeg");
+  background-image: url("../assets/lab.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
