@@ -64,7 +64,7 @@ h2 {
   justify-content: center;
   height: 780px;
   width: 1200px;
-  background-color: rgba(54, 202, 172, 0.526);
+  background-color: rgba(54, 199, 202, 0.526);
   border-radius: 20px;
   margin-top: -130px;
 }
@@ -98,7 +98,7 @@ h2 {
 
 /* characters */
 .grid div.charOne {
-  background-image: url("../assets/Mini-me.png");
+  background-image: url("../assets/test_subject.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -115,7 +115,6 @@ h2 {
   background-image: url("../assets/police_car.png");
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center;
   background-position: center;
 }
 
@@ -274,4 +273,74 @@ button {
   top: 0;
   left: 0;
   transform: translate(0, 0);
+}
+
+.grid div:nth-child(1) {
+  background-image: url("../assets/final_horizon_1.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(2) {
+  background-image: url("../assets/final_horizon_2.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(3) {
+  background-image: url("../assets/final_horizon_3.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(4) {
+  background-image: url("../assets/final_horizon_4.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(5) {
+  background-image: url("../assets/final_horizon_5.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(6) {
+  background-image: url("../assets/final_horizon_6.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(7) {
+  background-image: url("../assets/final_horizon_7.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(8) {
+  background-image: url("../assets/final_horizon_8.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(9) {
+  background-image: url("../assets/final_horizon_9.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid div:nth-child(10) {
+  background-image: url("../assets/final_horizon_10.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

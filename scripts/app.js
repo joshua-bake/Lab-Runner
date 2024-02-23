@@ -7,6 +7,7 @@ const cells = [];
 const corridor = [11, 14, 18, 92, 96];
 const assassin = [40, 43, 46, 49];
 const warden = [70, 74, 79];
+// for top row background
 
 let counter = 0;
 let charOneCurrentPosition = 97;
@@ -22,14 +23,14 @@ function createGrid() {
 
 createGrid();
 
-// ---------audio--------------------
+// -------audio-------
 const backgroundMusic = document.querySelector("#backgroundMusic");
 const carSound = document.querySelector("#carSound");
 const droneSound = document.querySelector("#droneSound");
 const wolfSound = document.querySelector("#wolfSound");
 const capturedSound = document.querySelector("#capturedSound");
 const winSound = document.querySelector("#winSound");
-// audio src
+const footstepSound = document.querySelector("#footsteps");
 
 const startButtons = document.querySelectorAll(".start");
 const popUps = document.querySelectorAll(".popUp");
@@ -99,6 +100,13 @@ function capturedSounds() {
   }, 2000);
 }
 
+function footstepSounds() {
+  footstepSound.play();
+  setTimeout(() => {
+    footstepSound.pause();
+  }, 1000);
+}
+
 function winSounds() {
   winSound.play();
 }
@@ -106,7 +114,7 @@ function winSounds() {
 function startReset() {
   popUps.forEach((popUp) => popUp.classList.remove("active"));
   addCharOne(charOneCurrentPosition);
-  gameSpeed(900); // increase to slow down or decrease to speed up.
+  gameSpeed(600); // increase to slow down or decrease to speed up.
   backgroundMusic.volume = 0.4;
   backgroundMusic.play();
 }
@@ -222,6 +230,7 @@ function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
   // moving sounds effects
   let newCharOnePosition = charOneCurrentPosition;
+  footstepSounds();
 
   // left is 37
   if (event.keyCode === 37 && charOneCurrentPosition % width !== 0) {
