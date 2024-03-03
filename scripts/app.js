@@ -15,7 +15,6 @@ let charOneCurrentPosition = 97;
 function createGrid() {
   Array.from(Array(cellCount).keys()).forEach((i) => {
     const cell = document.createElement("div");
-
     grid.appendChild(cell);
     cells.push(cell);
   });
@@ -114,7 +113,7 @@ function winSounds() {
 function startReset() {
   popUps.forEach((popUp) => popUp.classList.remove("active"));
   addCharOne(charOneCurrentPosition);
-  gameSpeed(600); // increase to slow down or decrease to speed up.
+  gameSpeed(400); // increase to slow down or decrease to speed up.
   backgroundMusic.volume = 0.4;
   backgroundMusic.play();
 }
@@ -135,8 +134,6 @@ function pauseGame() {
   removeCharOne(charOneCurrentPosition); // Remove charOne class from current position
   charOneCurrentPosition = 97; // Reset charOne's position back to 97
   backgroundMusic.pause();
-
-  // pause any playing audio files
 }
 
 let gameInterval;
@@ -212,7 +209,7 @@ function move() {
       }
     }
   });
-
+  // immovable objects
   corridor.forEach((index) => {
     cells[index].classList.add("corridor");
   });
@@ -228,7 +225,7 @@ function move() {
 
 function handleKeyDown(event) {
   removeCharOne(charOneCurrentPosition);
-  // moving sounds effects
+
   let newCharOnePosition = charOneCurrentPosition;
   footstepSounds();
 
@@ -254,9 +251,9 @@ function handleKeyDown(event) {
 
   // Collision detection with immovable objects
   if (cells[newCharOnePosition].classList.contains("corridor")) {
-    //Check if the destination cell contains the corridor
+    // Check if the destination cell contains the corridor
     newCharOnePosition = charOneCurrentPosition;
-    //corridor found, do not move the player
+    // corridor found, do not move the player
   }
 
   if (cells[newCharOnePosition].classList.contains("assassin")) {
