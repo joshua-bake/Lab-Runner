@@ -4,7 +4,7 @@ Lab Runner is a game that I created which was inspired by the popular game Frogg
 
 ## Link to Game
 
-[Lab Runner](https://joshua-bake.github.io/SEB-Project-1/)
+[Lab Runner](https://joshua-bake.github.io/Lab-Runner/)
 
 ## Overview
 
